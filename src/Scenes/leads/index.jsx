@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Box, Button, Typography, useTheme, Modal, TextField, MenuItem, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import Header from "../../Components/Header";
-import { mockDataLeads } from '../../Data/mockData';
+import Header from "../../GlobalComponents/Header.jsx";
+import { mockDataLeads } from '../../Data/mockData.js';
 import { tokens } from "../../theme";
 
 import { useOutletContext } from 'react-router-dom';  //to access the searchQuery state from topbar-search.
@@ -30,6 +30,18 @@ const modalStyle = {
     flexDirection: 'column',
     gap: '16px',
 };
+
+
+
+// style-map for status {change status color according to status provided}
+const statusStyles = {
+    'New': { backgroundColor: '#6ab2e2ff' },      // Light Blue
+    'Contacted': { backgroundColor: '#fdb55cff' }, // Orange
+    'Qualified': { backgroundColor: '#fce97fff' }, // Yellow/Gold
+    'Converted': { backgroundColor: '#57b757ff' }, // Green
+    'Lost': { backgroundColor: '#de7086ff' },      // Red
+};
+
 
 
 
@@ -87,22 +99,70 @@ const Leads = () => {
 
     // tables
     const columns = [
-        { field: "id", headerName: "ID", flex: 0.5 }, //flex--> column-width
+        { field: "id", headerName: "ID", flex: 1.2 }, //flex--> column-width
         { field: "name", headerName: "Name", flex: 1, cellClassName: "name-column--cell" },
         { field: "company", headerName: "Company", flex: 1 },
-        { field: "status", headerName: "Status", flex: 1 },
+
+
+
+        // status-color-change 
+        {
+            field: "status",
+            headerName: "Status",
+            flex: 1,
+            // align:'center', align it to center
+
+            // renderCell is a function that customizes how the cell is rendered
+            renderCell: ({ row }) => {
+                const status = row.status;
+                const style = statusStyles[status] || {}; // Get the style, default to empty object if not found
+
+                return (
+                    // This Box component will act as our "badge"
+                    <Box
+                        sx={{
+                            ...style, // Apply the background color from our map {that we made above}
+                            
+                            
+                            display:'inline-flex',
+                            width :'70%',
+                            height :'55%',
+                            // opacity: '50%',
+                            padding: '8px 12px',
+                            borderRadius: '16px', // Rounded pill shape
+                            fontWeight: 'bold',
+                            fontSize: '12px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+
+                            // minWidth: '80px', // Optional: Gives a minimum width to keep badges consistent
+                        }}
+                    >
+                        {status}
+                    </Box>
+                );
+            }
+        },
+
+
+
+
+
+
+
         { field: "source", headerName: "Source", flex: 1 },
 
         {
             field: "action",
             headerName: "Action",
-            flex: 1,
+            flex: 0.8,
 
             //   edit icon-button customisation
             renderCell: ({ row }) => (
                 <IconButton
                     onClick={() => handleOpen(row)}
-                    sx={{ color: colors.blueAccent[500], width: '70%', height: 'auto', borderRadius: '50%' }}
+                    sx={{ color: colors.blueAccent[500], width: '100%', height: 'auto', borderRadius: '50%' }}
                     aria-label="edit lead"
                 >
                     <EditIcon />
@@ -113,10 +173,14 @@ const Leads = () => {
 
 
 
+
+
     return (
         <Box m="20px">
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Header title="LEADS" subTitle="Managing your potential customers" />
+                <Header title="LEADS" subTitle="Managing Leads Information" />
+
+                {/* Add lead button {right-top btn} */}
                 <Button
                     variant="contained" //font-size
                     onClick={() => handleOpen({ name: '', company: '', status: '', source: '' })}
@@ -130,6 +194,16 @@ const Leads = () => {
                 >
                     Add Lead
                 </Button>
+
+                {/* Filter based on the result */}
+                {/* <h2>Leads Table</h2>
+                <ul>
+                    {filteredLeads.map((lead) => (
+                        <li key={lead.id}>
+                            {lead.name} - {lead.company}
+                        </li>
+                    ))}
+                </ul> */}
             </Box>
 
 
@@ -184,7 +258,7 @@ const Leads = () => {
                         {currentLead && currentLead.id ? 'Edit Lead' : 'Add New Lead'}
                     </Typography>
 
-                    <TextField
+                    <TextField //name
                         name="name"
                         label="Name"
                         value={currentLead?.name || ''}
@@ -193,7 +267,7 @@ const Leads = () => {
                         variant="outlined"
                         size="small"
                     />
-                    <TextField
+                    <TextField //company
                         name="company"
                         label="Company"
                         value={currentLead?.company || ''}
@@ -202,7 +276,7 @@ const Leads = () => {
                         variant="outlined"
                         size="small"
                     />
-                    <TextField
+                    <TextField //status
                         name="status"
                         label="Status"
                         value={currentLead?.status || ''}
@@ -220,7 +294,7 @@ const Leads = () => {
                     </TextField>
 
 
-                    <TextField
+                    <TextField //source
                         name="source"
                         label="Source"
                         value={currentLead?.source || ''}
@@ -229,6 +303,10 @@ const Leads = () => {
                         variant="outlined"
                         size="small"
                     />
+
+
+
+                    {/* buttons under the CRUD dialog-box */}
                     <Box display="flex" justifyContent="flex-end" gap="8px">
                         <Button
                             variant="outlined" //bg-color and fontsize (imported --library)
@@ -252,9 +330,9 @@ const Leads = () => {
 
 
 
-                    // CSS over-riding
+                            // CSS over-riding
                             sx={{
-                                
+
                                 // color: theme.palette.mode === 'dark' ? colors.gray[100] : colors.gray[100],
 
                                 backgroundColor: theme.palette.mode === 'dark' ? colors.greenAccent[800] : colors.greenAccent[800],
