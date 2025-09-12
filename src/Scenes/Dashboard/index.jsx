@@ -1,26 +1,18 @@
-// src/Scenes/Dashboard/index.jsx
-import{ useMemo } from 'react';
+import { useState } from 'react';
 import { Box } from "@mui/material";
 import Header from '../../GlobalComponents/Header';
-import Cards from "./Components/cards";
+import Cards from "./Components/Cards.jsx";
 import PieChart from "./Components/PieChart.jsx";
-import SalesChart from "./Components/SalesChart"; // Import the sales-chart
-import { useOutletContext } from 'react-router-dom';
-
+import SalesChart from "./Components/SalesChart";
+import CheckBox from "./Components/CheckBox.jsx";
+import PieChartTable from './Components/PieChart.jsx'; // Import the new table component
 
 const Dashboard = () => {
-    // const { searchQuery, leads } = useOutletContext();
-    // const filteredLeads = useMemo(() => {
-    //     if (!searchQuery) {
-    //         return leads;
-    //     }
-    //     const lowerCaseQuery = searchQuery.toLowerCase();
-    //     return leads.filter(lead =>
-    //         lead.name.toLowerCase().includes(lowerCaseQuery) ||
-    //         lead.company.toLowerCase().includes(lowerCaseQuery) ||
-    //         lead.status.toLowerCase().includes(lowerCaseQuery)
-    //     );
-    // }, [leads, searchQuery]);
+    const [showTable, setShowTable] = useState(false);
+
+    const handleChartClick = () => {
+        setShowTable(prev => !prev);
+    };
 
     return (
         <Box m="20px">
@@ -28,35 +20,34 @@ const Dashboard = () => {
                 <Header title='DASHBOARD' subTitle="Welcome to the Dashboard" />
             </Box>
             <Box>
-                <Cards  />
+                <Cards />
             </Box>
 
-
-            <Box display="flex" flexDirection="row" height={'100vh'}>
-                <Box flex={1} width="100%" height={'60%'} sx={{ p: '20px' }}>
-                    <PieChart  />
+            <Box display="flex" flexDirection="row" margin={'3px'}>
+                <Box flex={1} margin={'1rem'}>
+                    <PieChart onChartClick={handleChartClick} />
                 </Box>
-                <Box flex={1} width="100%" height={'60%'} sx={{ p: '20px' }} >
-                    <SalesChart  />
+                <Box flex={1} margin={'1rem'}>
+                    <SalesChart />
                 </Box>
             </Box>
+
+            {showTable && (
+                <Box
+                    sx={{
+                        margin: '1em',
+                        transition: 'height 0.5s ease-in-out', // Smooth transition for the table
+                        overflow: 'hidden'
+                    }}
+                >
+                    <PieChartTable />
+                </Box>
+            )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+                <CheckBox />
+            </div>
         </Box>
     );
 };
 export default Dashboard;
-
-
-
-
-
-
-
-
-
-
-
-/*
-                    SOME-Based info
-    1. 
-
-*/

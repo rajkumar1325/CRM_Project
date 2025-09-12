@@ -142,6 +142,8 @@ export default function SalesChart() {
 
 
 //MAIN CONTAINER/BOX
+
+  // container-style 
   const containerStyles = {
     width: "100%",
     height: "100%",

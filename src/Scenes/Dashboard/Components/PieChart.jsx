@@ -7,16 +7,16 @@ const CustomTooltip = ({ datum }) => (
     <div
         style={{
             background: 'black',
-            textAlign:'center',
+            textAlign: 'center',
             color: '#ffffff',
             opacity: '80%',
             padding: '6px 28px',
             // border: '1px solid #ffffffff',
             borderRadius: '3px',
-            }}
+        }}
     >
         {/* //prints id with values */}
-        <strong>{datum.id}</strong>: {datum.value} 
+        <strong>{datum.id}</strong>: {datum.value}
     </div>
 );
 
@@ -79,73 +79,80 @@ const DashboardPieChart = () => {
     };
 
     return (
-        <div style={{ padding: '10px', height: '100%', width: '100%' }}> {/* Outer container */}
-            <Box style={{ height: '100%', width: '100%' }}> {/* Use Box for better MUI integration */}
-                <ResponsivePie
-                    data={processedData} // Use the correctly processed data here
-                    margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-                    innerRadius={0.2}
-                    cornerRadius={5}
-                    activeOuterRadiusOffset={8}
-                    colors={{ scheme: 'set2' }}
-                    enableArcLabels={true}
-                    arcLabel="id"
-                    arcLabelsTextColor="#050301"
-                    enableArcLinkLabels={false}
-                    motionConfig="slow"
+        <>
+            {/* Outer container */}
+            <div style={{ padding: '10px', height: '100%', width: '100%', boxShadow: '0px 4px 10px rgba(0,0,0,0.3)', borderRadius:'3px' }}> 
 
-                    // // LELGEND-CUSTOMISATION
+                {/* charts-box/diagram */}
+                <Box style={{ height: '100%', width: '100%' }}> {/* Use Box for better MUI integration */}
+                    <ResponsivePie
+                        data={processedData} // Use the correctly processed data here
+                        margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                        innerRadius={0.2}
+                        cornerRadius={5}
+                        activeOuterRadiusOffset={8}
+                        colors={{ scheme: 'set2' }}
+                        enableArcLabels={true}
+                        arcLabel="id"
+                        arcLabelsTextColor="#050301"
+                        enableArcLinkLabels={false}
+                        motionConfig="slow"
+                        backgroundColor='#293347'
 
-                    // legends={[
-                    //     {
-                    //         anchor: 'bottom',
-                    //         direction: 'row',
-                    //         translateY: 36,
-                    //         itemWidth: 80, //space btw legends
-                    //         itemHeight: 100,
-                    //         symbolShape: 'diamond',
-                    //         itemTextColor: '#48d658ff',
-                    //         effects: [
-                    //             {   on: 'hover',
-                    //                 style: {
-                    //                     itemTextColor: '#d76363ff'
-                    //                 }
-                    //             }
-                    //         ]
-                    //     }
-                    // ]}
+                        // // LELGEND-CUSTOMISATION
+
+                        // legends={[
+                        //     {
+                        //         anchor: 'bottom',
+                        //         direction: 'row',
+                        //         translateY: 36,
+                        //         itemWidth: 80, //space btw legends
+                        //         itemHeight: 100,
+                        //         symbolShape: 'diamond',
+                        //         itemTextColor: '#48d658ff',
+                        //         effects: [
+                        //             {   on: 'hover',
+                        //                 style: {
+                        //                     itemTextColor: '#d76363ff'
+                        //                 }
+                        //             }
+                        //         ]
+                        //     }
+                        // ]}
 
 
-                    tooltip={CustomTooltip}
-                    onClick={handleSliceClick}
-                />
-            </Box>
-            {tableData.length > 0 && (
-                <div style={{ marginTop: '40px' }}>
-                    <h2>Leads - {selectedCategory}</h2>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-                        <thead>
-                            <tr style={{ backgroundColor: '#b4b3b3b9' }}>
-                                <th style={{ border: '1px solid #ddd', padding: '8px' }}>Name</th>
-                                <th style={{ border: '1px solid #ddd', padding: '8px' }}>Company</th>
-                                <th style={{ border: '1px solid #ddd', padding: '8px' }}>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tableData.map(lead => (
-                                <tr key={lead.id}>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{lead.name}</td>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{lead.company}</td>
+                        tooltip={CustomTooltip}
+                        onClick={handleSliceClick}
+                    />
+                </Box>
 
-                                    {/* Score : potential to become my customer */}
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{lead.score}%</td> 
+                {tableData.length > 0 && (
+                    <div style={{ marginTop: '40px' }}>
+                        <h2>Leads - {selectedCategory}</h2>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+                            <thead>
+                                <tr style={{ backgroundColor: '#b4b3b3b9' }}>
+                                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Name</th>
+                                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Company</th>
+                                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Score</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-        </div>
+                            </thead>
+                            <tbody>
+                                {tableData.map(lead => (
+                                    <tr key={lead.id}>
+                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{lead.name}</td>
+                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{lead.company}</td>
+
+                                        {/* Score : potential to become my customer */}
+                                        <td style={{ border: '1px solid #ddd', padding: '8px' }}>{lead.score}%</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
+        </>
     );
 };
 

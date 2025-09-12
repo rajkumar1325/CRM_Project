@@ -132,6 +132,7 @@ export const tokens = (mode) => ({
 export const themeSetting = (mode) => {
     const colors = tokens(mode);
 
+    // toggle light and dark mode
     return { 
         palette: {
             mode: mode,
