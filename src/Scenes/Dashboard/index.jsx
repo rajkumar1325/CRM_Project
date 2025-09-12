@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box } from "@mui/material";
 import Header from '../../GlobalComponents/Header';
-import Cards from "./Components/Cards.jsx";
+import Cards from './Components/cards.jsx';
 import PieChart from "./Components/PieChart.jsx";
 import SalesChart from "./Components/SalesChart";
 import CheckBox from "./Components/CheckBox.jsx";
