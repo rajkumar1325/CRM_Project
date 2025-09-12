@@ -1,27 +1,26 @@
 // src/Scenes/Dashboard/index.jsx
-import React, { useMemo } from 'react';
+import{ useMemo } from 'react';
 import { Box } from "@mui/material";
 import Header from '../../GlobalComponents/Header';
 import Cards from "./Components/cards";
-import PieChart from "./Components/PieChart";
+import PieChart from "./Components/PieChart.jsx";
 import SalesChart from "./Components/SalesChart"; // Import the sales-chart
 import { useOutletContext } from 'react-router-dom';
 
-// REMOVED: initialLeadsData is no longer needed here
-// REMOVED: addLead function is no longer needed here
+
 const Dashboard = () => {
-    const { searchQuery, leads } = useOutletContext();
-    const filteredLeads = useMemo(() => {
-        if (!searchQuery) {
-            return leads;
-        }
-        const lowerCaseQuery = searchQuery.toLowerCase();
-        return leads.filter(lead =>
-            lead.name.toLowerCase().includes(lowerCaseQuery) ||
-            lead.company.toLowerCase().includes(lowerCaseQuery) ||
-            lead.status.toLowerCase().includes(lowerCaseQuery)
-        );
-    }, [leads, searchQuery]);
+    // const { searchQuery, leads } = useOutletContext();
+    // const filteredLeads = useMemo(() => {
+    //     if (!searchQuery) {
+    //         return leads;
+    //     }
+    //     const lowerCaseQuery = searchQuery.toLowerCase();
+    //     return leads.filter(lead =>
+    //         lead.name.toLowerCase().includes(lowerCaseQuery) ||
+    //         lead.company.toLowerCase().includes(lowerCaseQuery) ||
+    //         lead.status.toLowerCase().includes(lowerCaseQuery)
+    //     );
+    // }, [leads, searchQuery]);
 
     return (
         <Box m="20px">
@@ -29,16 +28,16 @@ const Dashboard = () => {
                 <Header title='DASHBOARD' subTitle="Welcome to the Dashboard" />
             </Box>
             <Box>
-                <Cards filteredData={filteredLeads} />
+                <Cards  />
             </Box>
 
 
             <Box display="flex" flexDirection="row" height={'100vh'}>
                 <Box flex={1} width="100%" height={'60%'} sx={{ p: '20px' }}>
-                    <PieChart allmockPieData={filteredLeads} />
+                    <PieChart  />
                 </Box>
                 <Box flex={1} width="100%" height={'60%'} sx={{ p: '20px' }} >
-                    <SalesChart leadsData={filteredLeads} />
+                    <SalesChart  />
                 </Box>
             </Box>
         </Box>

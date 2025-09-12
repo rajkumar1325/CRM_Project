@@ -63,9 +63,11 @@ const Layout = () => {
             </ColorModeContext.Provider>
 
 
-            <Box>
+
+    {/* TYpe-writer */}
+            {/* <Box>
                 <Read />
-            </Box>
+            </Box> */}
 
         </>
     );
