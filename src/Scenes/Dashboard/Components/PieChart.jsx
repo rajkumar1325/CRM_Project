@@ -2,19 +2,22 @@ import React, { useState, useMemo } from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import { Box } from '@mui/material';
 
-// Custom tooltip component to show the label and value
+// Custom tooltip component to show the label and value on hover
 const CustomTooltip = ({ datum }) => (
     <div
         style={{
-            background: 'white',
-            padding: '12px 16px',
-            border: '1px solid #ccc',
+            background: '#968787ff',
+            padding: '6px 26px',
+            // border: '1px solid #ffffffff',
+            borderRadius: '3px',
             color: 'black',
+
         }}
     >
         <strong>{datum.id}</strong>: {datum.value}
     </div>
 );
+
 
 const DashboardPieChart = () => {
     // Sample detailed data for the table, representing the full list of leads.
@@ -44,6 +47,7 @@ const DashboardPieChart = () => {
     // We use a useMemo hook to process the raw data for the pie chart.
     const processedData = useMemo(() => {
         const counts = {};
+
         // Count the occurrences of each status
         allmockPieData.forEach(item => {
             const status = item.status;
@@ -58,6 +62,7 @@ const DashboardPieChart = () => {
         }));
     }, [allmockPieData]);
 
+    
     const handleSliceClick = (datum) => {
         if (clickedSlice && clickedSlice === datum.id) {
             setSelectedCategory(null);

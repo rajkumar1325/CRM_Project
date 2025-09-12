@@ -61,3 +61,35 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/* APP.css */
+
+/* The main container for the entire app layout */
+.app-container {
+  display: flex;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* The fixed sidebar container */
+.sidebar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000; /* Ensures the sidebar is always on top */
+}
+
+/* The spacer div that reserves space for the fixed sidebar */
+.sidebar-spacer {
+  flex-shrink: 0; /* Prevents the spacer from shrinking */
+}
+
+/* The main content area */
+.content {
+  flex-grow: 1; /* Allows the content to fill the remaining space */
+  overflow-y: auto; /* Allows content to scroll vertically if it overflows */
+}

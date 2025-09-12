@@ -1,10 +1,10 @@
 // src/Scenes/Dashboard/index.jsx
 import React, { useMemo } from 'react';
 import { Box } from "@mui/material";
-import Header from '../../Components/Header';
+import Header from '../../GlobalComponents/Header';
 import Cards from "./Components/cards";
 import PieChart from "./Components/PieChart";
-import LineChart from "./Components/LineChart"; // Import the LineChart component
+import SalesChart from "./Components/SalesChart"; // Import the sales-chart
 import { useOutletContext } from 'react-router-dom';
 
 // REMOVED: initialLeadsData is no longer needed here
@@ -31,15 +31,33 @@ const Dashboard = () => {
             <Box>
                 <Cards filteredData={filteredLeads} />
             </Box>
+
+
             <Box display="flex" flexDirection="row" height={'100vh'}>
                 <Box flex={1} width="100%" height={'60%'} sx={{ p: '20px' }}>
                     <PieChart allmockPieData={filteredLeads} />
                 </Box>
                 <Box flex={1} width="100%" height={'60%'} sx={{ p: '20px' }} >
-                    <LineChart leadsData={filteredLeads} />
+                    <SalesChart leadsData={filteredLeads} />
                 </Box>
             </Box>
         </Box>
     );
 };
 export default Dashboard;
+
+
+
+
+
+
+
+
+
+
+
+/*
+                    SOME-Based info
+    1. 
+
+*/

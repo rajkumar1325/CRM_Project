@@ -1,37 +1,73 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { ColorModeContext, useMode } from './theme';
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider, Box } from "@mui/material";
 import { useState } from 'react';
 
-// Importing dashboard components
-import Topbar from "./Scenes/Global/Topbar";
-import Sidebar from "./Scenes/Global/Sidebar";
-import Dashboard from "./Scenes/Dashboard/index.jsx";
-import Leads from "./Scenes/leads/index";
 
+
+import Read from './GlobalComponents/typeWriter.jsx'
+
+// Importing dashboard components
+import Topbar from "./GlobalComponents/Topbar.jsx";
+import Sidebar from "./GlobalComponents/Sidebar.jsx";
+import Dashboard from "./Scenes/Dashboard/index.jsx";
+import Leads from "./Scenes/leads/index.jsx";
 
 const Layout = () => {
     const [theme, colorMode] = useMode();
-
-    // State to hold the search query
     const [searchQuery, setSearchQuery] = useState('');
+    const [isCollapsed, setIsCollapsed] = useState(false); // State is now here
+
+    // Define dynamic widths based on the isCollapsed state
+    const expandedWidth = '270px';
+    const collapsedWidth = '80px';
+    const sidebarWidth = isCollapsed ? collapsedWidth : expandedWidth;
 
     return (
-        <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <div className='app'>
-                    <Sidebar />
-                    <main className='content'>
-                        {/* Pass the search state and setter to the Topbar */}
-                        <Topbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-                        {/* The Outlet component renders the nested routes, passing the search query as a prop to the leads*/}
-                        <Outlet context={{ searchQuery }} />
-                    </main>
-                </div>
-            </ThemeProvider>
-        </ColorModeContext.Provider>
+        <>
+            <ColorModeContext.Provider value={colorMode}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Box sx={{ display: 'flex', position: 'relative' }}>
+
+                        {/* The Sidebar with fixed position */}
+                        <Box
+                            sx={{
+                                width: sidebarWidth, // Dynamic width
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                height: '100vh',
+                                zIndex: 1000,
+                            }}
+                        >
+                            {/* Pass state and setter to Sidebar */}
+                            <Sidebar
+                                isCollapsed={isCollapsed}
+                                setIsCollapsed={setIsCollapsed}
+                            />
+                        </Box>
+
+                        {/* Spacer Box - Width is now dynamic */}
+                        <Box sx={{ width: sidebarWidth, flexShrink: 0 }} />
+
+                        {/* Main Content */}
+                        <main className='content' style={{ flexGrow: 1, overflowY: 'auto' }}>
+                            <Topbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                            <Outlet context={{ searchQuery }} />
+                        </main>
+
+                    </Box>
+                </ThemeProvider>
+            </ColorModeContext.Provider>
+
+
+            <Box>
+                <Read />
+            </Box>
+
+        </>
     );
 };
 
@@ -49,8 +85,8 @@ const router = createBrowserRouter([
                 element: <Leads />,
             },
             // {
-            //   path: '/contacts',
-            //   element: <Contacts />,
+            //   path: '/contacts',
+            //   element: <Contacts />,
             // },
         ],
     },

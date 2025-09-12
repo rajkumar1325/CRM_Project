@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, colors, useTheme } from '@mui/material';
-import theme, { tokens } from '../../../theme';
+import { tokens } from '../../../theme';
 
 const Cards = () => {
     // This is the static data. In a real application, you would fetch this from your Spring Boot API.
@@ -8,7 +8,7 @@ const Cards = () => {
         totalLeads: 120,
         activeDeals: 75,
         closedDeals: 45,
-        pipelineValue: '₹ 1.56M',
+        profit: '₹ 1.56M',
         conversionRate: '37.5%', // (closedDeals / activeDeals) * 100
     };
 
@@ -40,7 +40,7 @@ const Cards = () => {
         { title: 'Active Deals', value: data.activeDeals },
         { title: 'Closed Deals', value: data.closedDeals },
         { title: 'Conversion Rate', value: data.conversionRate },
-        { title: 'Profit Earned', value: data.pipelineValue },
+        { title: 'Profit Earned', value: data.profit },
     ];
 
     return (
@@ -69,9 +69,9 @@ const Cards = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         boxShadow: 3,
-                        // toggle dark mode
-                        backgroundColor:
-                            theme.palette.mode === "dark"
+                        
+                        backgroundColor: 
+                            theme.palette.mode === "dark"  // toggle dark mode
                                 ? colors.primary[400]
                                 : colors.gray[800],
 

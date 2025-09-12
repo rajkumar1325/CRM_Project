@@ -107,3 +107,4 @@
 
 #####
 pieChart --> Deals by state/stages
+LineChart --> make using Chart.js and MUI material react
