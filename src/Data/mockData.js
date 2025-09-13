@@ -9,6 +9,8 @@
  *  conversionDate    -> present only for Converted leads
  *  dealStatus        -> "active" | "close"   <-- (you asked for this)
  *  receivedAmount    -> number (0 if not converted)
+ * 
+ *  
  */
 
 export const mockDataLeads = [
@@ -668,3 +670,30 @@ export const mockDataDashboard = {
     },
   ],
 };
+
+
+
+// CHECKBOX DATA
+// A mock array of tasks with a completed state.
+export const CheckBoxData = [
+  { id: 1, text: "Follow up with John Doe", completed: false },
+  { id: 2, text: "Send contract to Acme Inc", completed: false },
+  { id: 3, text: "Call Jane Smith", completed: false },
+  { id: 4, text: "Prepare proposal for XYZ.Corp", completed: false },
+  { id: 5, text: "Schedule product demo", completed: false },
+];
+
+
+
+
+
+
+
+// Data for Meetings
+export const mockMeetingsData = [
+  { id: 1, title: "Demo Call with Jane Smith", date: "Mar 11, 2024", time: "5:00 PM" },
+  { id: 2, title: "Review Meeting with ABC Ltd", date: "Mar 12, 2024", time: "10:00 AM" },
+  { id: 3, title: "Follow-up Call with John Doe", date: "Mar 13, 2024", time: "2:00 PM" },
+  { id: 4, title: "Client Sync with Tech Solutions", date: "Mar 14, 2024", time: "11:00 AM" },
+  { id: 5, title: "Team Standup", date: "Mar 14, 2024", time: "9:00 AM" },
+];  

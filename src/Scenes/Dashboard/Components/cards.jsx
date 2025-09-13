@@ -1,39 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Paper, colors, useTheme } from '@mui/material';
+import { Box, Typography, Paper, useTheme } from '@mui/material';
 import { tokens } from '../../../theme';
 
+// The mock data is outside the component to prevent re-creation on every render.
+const mockData = {
+    totalLeads: 120,
+    activeDeals: 75,
+    closedDeals: 45,
+    profit: '₹ 1.56M',
+    conversionRate: '37.5%',
+};
+
 const Cards = () => {
-    // This is the static data. In a real application, you would fetch this from your Spring Boot API.
-    const mockData = {
-        totalLeads: 120,
-        activeDeals: 75,
-        closedDeals: 45,
-        profit: '₹ 1.56M',
-        conversionRate: '37.5%', // (closedDeals / activeDeals) * 100
-    };
-
-    const [data, setData] = useState(mockData);
-    const [loading, setLoading] = useState(true);
-
-
-    // for using theme
+    // Corrected variable name to avoid conflict
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode)
+    const colorTokens = tokens(theme.palette.mode);
 
-    useEffect(() => {
-        // Simulate an API call
-        const fetchData = async () => {
-            // Here you would use Axios or fetch to get data from your Spring Boot backend
-            // const response = await axios.get('/api/v1/leads/overview');
-            // setData(response.data);
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
-
-    if (loading) {
-        return <Box sx={{ p: 2 }}>Loading...</Box>;
-    }
+    // Initializing state with mockData. Removed unnecessary loading state for mock data.
+    const [data] = useState(mockData);
 
     const cards = [
         { title: 'Total Leads', value: data.totalLeads },
@@ -50,12 +34,6 @@ const Cards = () => {
                 gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)' },
                 gap: 2,
                 p: 2,
-
-                // // toggle dark mode
-                // backgroundColor:
-                //     theme.palette.mode === "dark"
-                //         ? colors.primary[400]
-                //         : colors.gray[800],
             }}
         >
             {cards.map((card, index) => (
@@ -69,13 +47,10 @@ const Cards = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         boxShadow: 3,
-                        
-                        backgroundColor: 
-                            theme.palette.mode === "dark"  // toggle dark mode
-                                ? colors.primary[400]
-                                : colors.gray[800],
-
-
+                        // Corrected: Set the card background color based on the theme mode
+                        backgroundColor: theme.palette.mode === "dark" 
+                            ? colorTokens.primary[400] 
+                            : colorTokens.gray[800],
                     }}
                 >
                     <Typography variant="h6" color="text.secondary" gutterBottom>
@@ -85,13 +60,11 @@ const Cards = () => {
                         variant="h3"
                         component="div"
                         fontWeight="bold"
-
-                        // toggle dark mode
                         sx={{
-                            color:
-                                theme.palette.mode === "dark"
-                                    ? colors.redAccent[900]
-                                    : colors.blueAccent[100],
+                            // Corrected: Set the text color based on the theme mode and using the correct variable
+                            color: theme.palette.mode === "dark" 
+                                ? colorTokens.redAccent[900] 
+                                : colorTokens.blueAccent[100],
                         }}
                     >
                         {card.value}

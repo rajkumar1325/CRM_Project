@@ -5,7 +5,10 @@ import Cards from './Components/cards.jsx';
 import PieChart from "./Components/PieChart.jsx";
 import SalesChart from "./Components/SalesChart";
 import CheckBox from "./Components/CheckBox.jsx";
+import MeetingCall from "./Components/MeetingsCall.jsx";
 import PieChartTable from './Components/PieChart.jsx'; // Import the new table component
+import { MeetingRoom } from '@mui/icons-material';
+
 
 const Dashboard = () => {
     const [showTable, setShowTable] = useState(false);
@@ -44,9 +47,18 @@ const Dashboard = () => {
                 </Box>
             )}
 
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-                <CheckBox />
-            </div>
+
+
+            <Box display="flex" flexDirection="row" margin={'3px'}>
+                <Box flex={1} margin={'1rem'} display={'contain'}>
+                    <CheckBox />
+                </Box>
+                <Box flex={1} margin={'1rem'}>
+                    <MeetingCall />
+                </Box>
+            </Box>
+
+
         </Box>
     );
 };

@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Typography, Checkbox, FormControlLabel, IconButton } from '@mui/material';
-import { List } from '@mui/icons-material';
+import { Check, CheckBox, List } from '@mui/icons-material';
+import {CheckBoxData} from '../../../Data/mockData';
 
 const Tasks = () => {
-    // A mock array of tasks with a completed state.
-    const [tasks, setTasks] = useState([
-        { id: 1, text: "Follow up with John Doe", completed: false },
-        { id: 2, text: "Send contract to Acme Inc", completed: false },
-        { id: 3, text: "Call Jane Smith", completed: false },
-        { id: 4, text: "Prepare proposal for XYZ.Corp", completed: false },
-        { id: 5, text: "Schedule product demo", completed: false },
-    ]);
+    const [tasks, setTasks] = useState(CheckBoxData); //initialise state with imported data
 
+    // It uses the state variable "tasks" and setter "setTasks"
     const handleCheckboxChange = (id) => {
         setTasks(tasks.map(task =>
             task.id === id ? { ...task, completed: !task.completed } : task
@@ -22,15 +17,15 @@ const Tasks = () => {
         <Box
             sx={{
                 width: '100%',
-                maxWidth: '400px',
+                // maxWidth: '400px',
                 minWidth: '250px',
                 // backgroundColor: '#f0dcdc0d',
                 borderRadius: '12px',
-                // boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
                 padding: '20px',
                 display: 'flex',
                 flexDirection: 'column',
-                margin: '1em',
+                // margin: '1em',
             }}
         >
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
