@@ -6,16 +6,16 @@ const Header = ({ title, subTitle }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    return <Box mb={'10px'}>
+    return <Box mb={2}>
 
         <Typography variant="h2"
-            color={colors.gray[100]}
+                color={theme.palette.mode === 'dark' ? colors.gray[100] : colors.gray[800]}
             fontWeight="bold"
-            sx={{ mb: "%px" }} >
+            sx={{ mb: "5px" }} >
             {title}
         </Typography>
 
-        <Typography variant="h5" color={colors.greenAccent[100]}>{subTitle}</Typography>
+        <Typography variant="h5" color= "text.secondary">{subTitle}</Typography>
     </Box>
 }
 
