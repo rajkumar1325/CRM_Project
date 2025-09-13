@@ -149,11 +149,8 @@ export default function SalesChart() {
     height: "100%",
     p: 3,
     boxShadow: 3,
-    borderRadius: 2,
-    // backgroundColor: colors.primary[400], 
-
+    borderRadius: '2%',
     backgroundColor: theme.palette.mode === 'dark'? '#293347' : '#F9FAFC',
-
     color: colors.gray[100],
     transition: 'background-color 0.5s, color 0.5s',
   };

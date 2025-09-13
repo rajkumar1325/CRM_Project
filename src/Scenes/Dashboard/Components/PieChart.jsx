@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ResponsivePie } from '@nivo/pie';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
+import { tokens } from '../../../theme';
 
 // Custom tooltip component to show the label and value on hover
 const CustomTooltip = ({ datum }) => (
@@ -45,6 +46,13 @@ const DashboardPieChart = () => {
     const [tableData, setTableData] = useState([]);
     const [clickedSlice, setClickedSlice] = useState(null);
 
+
+
+    // Get the theme and color tokens from the context - toggle light/dark mode
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
+
     // This is the new, crucial part.
     // We use a useMemo hook to process the raw data for the pie chart.
     const processedData = useMemo(() => {
@@ -81,7 +89,16 @@ const DashboardPieChart = () => {
     return (
         <>
             {/* Outer container */}
-            <div style={{ padding: '10px', height: '100%', width: '100%', boxShadow: '0px 4px 10px rgba(0,0,0,0.3)', borderRadius:'3px' }}> 
+            <div style={{
+                width: "100%",
+                height: "100%",
+                p: 3,
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                borderRadius: '2%',
+                backgroundColor: theme.palette.mode === 'dark' ? '#293347' : '#F9FAFC',
+                color: colors.gray[100],
+                transition: 'background-color 0.5s, color 0.5s',
+            }}>
 
                 {/* charts-box/diagram */}
                 <Box style={{ height: '100%', width: '100%' }}> {/* Use Box for better MUI integration */}

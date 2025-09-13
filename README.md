@@ -117,3 +117,7 @@ SalesChart/ PieChart --> make using Chart.js and MUI material react
 firstly import --> 
  --> const theme = useTheme(); // now you can use theme.palette, etc.
  --> backgroundColor: theme.palette.mode === 'dark' ? colors.greenAccent[800]
+
+
+
+useTheme() : hook that detects the change

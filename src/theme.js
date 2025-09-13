@@ -8,7 +8,6 @@ export const tokens = (mode) => ({
     ...(mode === "dark"
         ? {
             //Added a `primary` key for both dark and light modes as it's used later in the theme settings.
-
             // Dark mode colors
             primary: {
                 100: "#d0d1d5",
